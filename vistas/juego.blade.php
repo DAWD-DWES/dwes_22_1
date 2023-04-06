@@ -21,7 +21,7 @@
                         <input class="btn btn-outline-secondary mx-4" name="botonenviarjugada" type="submit" value="Enviar Jugada" {{ $partida->esFin() ? "disabled" : "" }}>
                     </div>
                     <div class="input-group-append">
-                        <input class="btn btn-outline-secondary" name="botonpista" value="Pista">
+                        <input class="btn btn-outline-secondary" id="botonpista" {{ $partida->esFin() ? "disabled" : "" }} name="botonpista" type="submit" value="Pista">
                     </div>
                     <div class="invalid-feedback">
                         La letra no es correcta o ya se ha introducido.

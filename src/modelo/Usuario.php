@@ -98,4 +98,18 @@ class Usuario {
         return $usuario;
     }
 
+    /**
+     * Persiste la información del objeto usuario en la base de datos
+     * 
+     * @param PDO $bd Conexión a la base de datos
+     * 
+     * @returns bool Verdadero si ya se ha persistido correctamente y falso en caso contrario
+     */
+    public function persiste(PDO $bd): bool {
+        $sql = "insert into usuarios (nombre, clave, email) values (:nombre, :clave, :email)";
+        $sth = $bd->prepare($sql);
+        $result = $sth->execute([":nombre" => $this->nombre, ":clave" => $this->clave, ":email" => $this->email]);
+        return ($result);
+    }
+
 }

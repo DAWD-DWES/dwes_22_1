@@ -150,4 +150,32 @@ class Hangman {
         return ($this->esPalabraDescubierta() || ($this->getNumErrores() === $this->getMaxNumErrores()));
     }
 
+    /**
+     * Calcula la letra a mostrar cuando se solicita una pista
+     * Letra con mayor número de ocurrencias y ordenada alfabéticamente
+     * 
+     * @returns string Letra de pista, si ya no hay letras ocultas se devuelve la cadena vacía
+     */
+ 
+    public function damePista(): string {
+        $resultado = "";
+        $ocurrencias = []; // Guarda el número de ocurrencias de las letras de la palabra
+        for ($i = 0; $i < strlen($this->getPalabraSecreta()); $i++) {
+            if (isset($ocurrencias[$this->getPalabraSecreta()[$i]])) {
+                $ocurrencias[$this->getPalabraSecreta()[$i]]++;
+            } else {
+                $ocurrencias[$this->getPalabraSecreta()[$i]] = 1;
+            }
+        }
+        ksort($ocurrencias); // Ordeno alfabéticamente por la clave que representa la letra
+        arsort($ocurrencias); // Ordeno por el número de ocurrencias de cada letra. Se mantiene la relación con la clave
+        foreach ($ocurrencias as $i => $num) { // Busco la primera letra de la lista que está en la palabra secreta y no en la palabra descubierta
+            if ((strpos($this->getPalabraDescubierta(), $i) === false) && (strpos($this->getPalabraSecreta(), $i) !== false)) {
+                $resultado = $i;
+                break;
+            }
+        }
+        return $resultado;
+    }
+
 }

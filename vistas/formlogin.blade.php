@@ -2,7 +2,7 @@
 @extends('app')
 {{-- Sección aporta el título de la página --}}
 @section('title', 'Formulario login')
-{{-- Sección aporta el enlace para autoregistro --}}
+{{-- Sección aporta el enlace de autoregistro --}}
 @section('navbar')
 <div class="container justify-content-around">
     <ul class="navbar-nav">

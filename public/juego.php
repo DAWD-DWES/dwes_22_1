@@ -7,7 +7,7 @@
  * Si el usuario ya está validado
  *   Si se pide jugar con una letra
  *     Leo la letra
- *     Si no hay error en la letra introducida
+ *     *     Si no hay error en la letra introducida
  *       Solicito a la partida que compruebe la letra
  *     Sigo jugando
  *   Sino si se solicita una nueva partida
@@ -53,37 +53,43 @@ try {
 }
 // Si el usuario ya está validado
 if (isset($_SESSION['usuario'])) {
-// Si se pide jugar con una letra
+    // Si se pide jugar con una letra
     if (isset($_POST['botonenviarjugada'])) {
-// Leo la letra
+        // Leo la letra
         $letra = filter_var(trim(filter_input(INPUT_POST, 'letra', FILTER_SANITIZE_STRING)), FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^[A-Za-z]$/"]]);
         $usuario = $_SESSION['usuario'];
         $partida = $_SESSION['partida'];
-// Compruebo si la letra no es válida (carácter no válido o ya introducida)
+// Si la letra no es válida (carácter no válido o ya introducida)
         $error = !$letra || strpos($partida->getLetras(), strtoupper($letra)) !== false;
-        // Si no hay error compruebo la letra
+// Si no hay error compruebo la letra
         if (!$error) {
             $partida->compruebaLetra(strtoupper($letra));
         }
-        // Sigo jugando
+// Sigo jugando
         echo $blade->run("juego", compact('usuario', 'partida', 'error'));
         die;
-// Sino si se solicita una nueva partida
+        // Sino
+    } elseif (isset($_REQUEST['botonpista'])) {
+        $partida = $_SESSION['partida'];
+        $pista = $partida->damePista();
+        header('Content-type: application/json');
+        echo json_encode(['letra' => $pista]);
+        die;
     } elseif (isset($_REQUEST['botonnuevapartida'])) { // Se arranca una nueva partida
         $usuario = $_SESSION['usuario'];
         $almacenPalabras = new AlmacenPalabrasFichero();
         $partida = new Hangman($almacenPalabras, MAX_NUM_ERRORES);
         $_SESSION['partida'] = $partida;
-// Invoco la vista del juego para empezar a jugar
+        // Invoco la vista del juego para empezar a jugar
         echo $blade->run("juego", compact('usuario', 'partida'));
         die;
-    } else { //En cualquier otro caso
+    } else { // En cualquier otro caso
         $usuario = $_SESSION['usuario'];
         $partida = $_SESSION['partida'];
         echo $blade->run("juego", compact('usuario', 'partida'));
         die;
     }
-// En otro caso se muestra el formulario de login
+    // En otro caso se muestra el formulario de login
 } else {
     echo $blade->run("formlogin");
     die;
