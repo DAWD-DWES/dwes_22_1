@@ -20,11 +20,9 @@ require "../vendor/autoload.php";
 
 use eftec\bladeone\BladeOne;
 use Dotenv\Dotenv;
-use App\{
-    BD,
-    Hangman,
-    AlmacenPalabrasFichero
-};
+use App\BD\BD;
+use App\Modelo\Hangman;
+use App\Almacen\AlmacenPalabrasFichero;
 
 session_start();
 
@@ -51,6 +49,7 @@ try {
     echo $blade->run("cnxbderror", compact('error'));
     die;
 }
+
 // Si el usuario ya está validado
 if (isset($_SESSION['usuario'])) {
     // Si se pide jugar con una letra

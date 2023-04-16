@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Modelo;
 
 // PDO se usa para interaccionar con la base de datos relacional
 use \PDO as PDO;
@@ -77,39 +77,6 @@ class Usuario {
 
     public function setEmail(string $email) {
         $this->email = $email;
-    }
-
-    /**
-     * Recupera un objeto usuario dado su nombre de usuario y clave
-     * 
-     * @param PDO $bd Conexión a la base de datos
-     * @param string $nombre Nombre de usuario
-     * @param string $clave Clave del usuario
-     * 
-     * @returns Usuario que corresponde a ese nombre y clave o null en caso contrario
-     */
-    public static function recuperaUsuarioPorCredencial(PDO $bd, string $nombre, string $clave): ?Usuario {
-        $bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
-        $sql = 'select * from usuarios where nombre=:nombre and clave=:clave';
-        $sth = $bd->prepare($sql);
-        $sth->execute([":nombre" => $nombre, ":clave" => $clave]);
-        $sth->setFetchMode(PDO::FETCH_CLASS, Usuario::class);
-        $usuario = ($sth->fetch()) ?: null;
-        return $usuario;
-    }
-
-    /**
-     * Persiste la información del objeto usuario en la base de datos
-     * 
-     * @param PDO $bd Conexión a la base de datos
-     * 
-     * @returns bool Verdadero si ya se ha persistido correctamente y falso en caso contrario
-     */
-    public function persiste(PDO $bd): bool {
-        $sql = "insert into usuarios (nombre, clave, email) values (:nombre, :clave, :email)";
-        $sth = $bd->prepare($sql);
-        $result = $sth->execute([":nombre" => $this->nombre, ":clave" => $this->clave, ":email" => $this->email]);
-        return ($result);
     }
 
 }

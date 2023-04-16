@@ -35,15 +35,12 @@ require "../vendor/autoload.php";
 
 use eftec\bladeone\BladeOne;
 use Dotenv\Dotenv;
-use App\{
-    BD,
-    Usuario
-};
+use App\BD\BD;
+use App\Modelo\Usuario;
+use App\Dao\UsuarioDao;
 
 session_start();
-
-//               
-//               
+             
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
@@ -74,6 +71,8 @@ try {
     echo $blade->run("cnxbderror", compact('error'));
     die;
 }
+
+$usuarioDao = new UsuarioDao($bd);
 // Si el usuario ya está validado
 if (isset($_SESSION['usuario'])) {
 // Si se solicita cerrar la sesión
@@ -102,9 +101,9 @@ if (isset($_SESSION['usuario'])) {
 // Si se está enviando el formulario de login con los datos
     } elseif (isset($_REQUEST['botonproclogin'])) {
 // Lee los valores del formulario
-        $nombre = trim(filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING));
-        $clave = trim(filter_input(INPUT_POST, 'clave', FILTER_SANITIZE_STRING));
-        $usuario = Usuario::recuperaUsuarioPorCredencial($bd, $nombre, $clave);
+        $nombre = trim(filter_input(INPUT_POST, 'nombre', FILTER_UNSAFE_RAW));
+        $clave = trim(filter_input(INPUT_POST, 'clave', FILTER_UNSAFE_RAW));
+        $usuario = $usuarioDao->recuperaPorCredencial($nombre, $clave);
 // Si los credenciales son correctos
         if ($usuario) {
             $_SESSION['usuario'] = $usuario;
@@ -124,9 +123,9 @@ if (isset($_SESSION['usuario'])) {
         die;
 // Si se solicita que se procese una petición de registro
     } elseif (isset($_REQUEST['botonprocregistro'])) {
-        $nombre = trim(filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING));
-        $clave = trim(filter_input(INPUT_POST, 'clave', FILTER_SANITIZE_STRING));
-        $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING));
+        $nombre = trim(filter_input(INPUT_POST, 'nombre', FILTER_UNSAFE_RAW));
+        $clave = trim(filter_input(INPUT_POST, 'clave', FILTER_UNSAFE_RAW));
+        $email = trim(filter_input(INPUT_POST, 'email', FILTER_UNSAFE_RAW));
         $errorNombre = empty($nombre) || !esNombreValido($nombre);
         $errorPassword = empty($clave) || !esPasswordValido($clave);
         $errorEmail = empty($email) || !esEmailValido($email);
@@ -136,7 +135,7 @@ if (isset($_SESSION['usuario'])) {
         } else {
             $usuario = new Usuario($nombre, $clave, $email);
             try {
-                $usuario->persiste($bd);
+                $usuarioDao->crea($usuario);
             } catch (PDOException $e) {
                 echo $blade->run("formregistro", ['errorBD' => true]);
                 die();

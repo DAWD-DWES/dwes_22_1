@@ -1,5 +1,5 @@
 <?php
-namespace App;
+namespace App\Almacen;
 
 class AlmacenPalabrasFichero implements AlmacenPalabrasInterface
 {
