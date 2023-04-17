@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\BD;
 
 use \PDO as PDO;
 

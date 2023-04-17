@@ -1,9 +1,6 @@
 <?php
 
-namespace App;
-
-// Transliterator se usa para eliminar las tildes de las letras
-use \Transliterator as Transliterator;
+namespace App\Modelo;
 
 /**
  * Hangman representa una partida del juego del ahorcado
@@ -49,8 +46,7 @@ class Hangman {
      * @returns Hangman
      */
     public function __construct($almacen, $maxNumErrores) {
-        $transliterator = Transliterator::createFromRules(':: Any-Latin; :: Latin-ASCII; :: NFD; :: [:Nonspacing Mark:] Remove; :: Lower(); :: NFC;', Transliterator::FORWARD);
-        $this->setPalabraSecreta(strtoupper($transliterator->transliterate($almacen->obtenerPalabraAleatoria())));
+        $this->setPalabraSecreta(strtoupper($almacen->obtenerPalabraAleatoria()));
         // Inicializa la estado de la palabra descubierta a una secuencia de guiones, uno por letra de la palabra oculta
         $this->setPalabraDescubierta(preg_replace('/\w+?/', '_', $this->getPalabraSecreta()));
         $this->letras = "";

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Modelo;
 
 // PDO se usa para interaccionar con la base de datos relacional
 use \PDO as PDO;

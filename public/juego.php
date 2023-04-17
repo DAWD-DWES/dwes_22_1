@@ -20,11 +20,10 @@ require "../vendor/autoload.php";
 
 use eftec\bladeone\BladeOne;
 use Dotenv\Dotenv;
-use App\{
-    BD,
-    Hangman,
-    AlmacenPalabrasFichero
-};
+use App\BD\BD;
+use App\Modelo\Hangman;
+use App\Almacen\AlmacenPalabrasFichero;
+
 
 session_start();
 
