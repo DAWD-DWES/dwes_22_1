@@ -12,7 +12,7 @@ CREATE TABLE usuarios (
   id int(11) NOT NULL,
   nombre varchar(60) COLLATE utf8_spanish_ci NOT NULL,
   clave varchar(20) COLLATE utf8_spanish_ci NOT NULL,
-  email varchar(60) COLLATE utf8_spanish_ci NOT NULL
+  email varchar(60) COLLATE utf8_spanish_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
