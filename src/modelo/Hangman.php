@@ -2,40 +2,37 @@
 
 namespace App\Modelo;
 
+use App\Almacen\AlmacenPalabrasInterface;
+
 /**
- * Hangman representa una partida del juego del ahorcado
+ * Clase que representa una partida del juego del ahorcado
  */
 class Hangman {
 
     /**
-     * Id de la partida de ahorcado
+     * @var int $numErrores Número de errores cometidos en la partida
      */
-    private $id;
+    private int $numErrores = 0;
 
     /**
-     * Número de errores cometidos en la partida
+     * @var $palabraSecreta Palabra secreta usada en la partida
      */
-    private $numErrores;
+    private string $palabraSecreta;
 
     /**
-     * Palabra secreta usada en la partida
+     * @var $palabraDescubierta Estado de la palabra según va siendo descubierta. Por ejemplo c_c_e
      */
-    private $palabraSecreta;
+    private string $palabraDescubierta;
 
     /**
-     * Estado de la palabra según va siendo descubierta. Por ejemplo c_c_e
+     * @var $letras Lista de jugadas que ha realizado el jugador en la partida
      */
-    private $palabraDescubierta;
+    private string $letras = "";
 
     /**
-     * Lista de jugadas que ha realizado el jugador en la partida
+     * @var $manNumErrores Número de errores permitido en la partida
      */
-    private $letras;
-
-    /**
-     * Número de errores permitido en la partida
-     */
-    private $maxNumErrores;
+    private int $maxNumErrores;
 
     /**
      * Constructor de la clase Hangman
@@ -45,66 +42,111 @@ class Hangman {
      * 
      * @returns Hangman
      */
-    public function __construct($almacen, $maxNumErrores) {
+    public function __construct(AlmacenPalabrasInterface $almacen, int $maxNumErrores) {
         $this->setPalabraSecreta(strtoupper($almacen->obtenerPalabraAleatoria()));
         // Inicializa la estado de la palabra descubierta a una secuencia de guiones, uno por letra de la palabra oculta
         $this->setPalabraDescubierta(preg_replace('/\w+?/', '_', $this->getPalabraSecreta()));
-        $this->letras = "";
-        $this->setNumErrores(0);
-        $this->letras = "";
         $this->maxNumErrores = $maxNumErrores;
     }
 
-    public function getId(): ?int {
-        return ($this->id) ?? null;
-    }
-
-    public function setId(int $id): void {
-        $this->id = $id;
-    }
-
+    /**
+     * Recupera la palabra secreta de la partida
+     * 
+     * @returns string Palabra secreta de la partida
+     */
     public function getPalabraSecreta(): string {
         return $this->palabraSecreta;
     }
 
-    public function setPalabraSecreta($palabra): void {
-        $this->palabraSecreta = $palabra;
+    /**
+     * Establece la palabra secreta de la partida
+     * 
+     * @param string $palabraSecreta Palabra secreta de la partida
+     * 
+     * @returns void
+     */
+    public function setPalabraSecreta(string $palabraSecreta): void {
+        $this->palabraSecreta = $palabraSecreta;
     }
 
+    /**
+     * Recupera el estado de la palabra descubierta de la partida
+     * 
+     * @returns string Estado de la palabra descubierta de la partida
+     */
     public function getPalabraDescubierta(): string {
         return $this->palabraDescubierta;
     }
 
-    public function setPalabraDescubierta($palabra): void {
-        $this->palabraDescubierta = $palabra;
+    /**
+     * Establece el estado de la palabra descubierta de la partida
+     * 
+     * @param string $palabraDescubierta El estado de la palabra descubierta de la partida
+     * 
+     * @returns void
+     */
+    public function setPalabraDescubierta(string $palabraDescubierta): void {
+        $this->palabraDescubierta = $palabraDescubierta;
     }
 
+    /**
+     * Recupera el listado de letras jugadas en la partida
+     * 
+     * @returns string Listado de letras jugadas en la partida
+     */
     public function getLetras(): string {
         return $this->letras;
     }
 
-    public function setLetras($letras): void {
+    /**
+     * Establece el listado de letras jugadas en la partida
+     * 
+     * @param string $letras Listado de letras jugadas en la partida
+     * 
+     * @returns void
+     */
+    public function setLetras(string $letras): void {
         $this->letras = $letras;
     }
 
-    public function getMaxNumErrores(): ?int {
+    /**
+     * Recupera el número máximo de errores de la partida
+     * 
+     * @returns int Número máximo de errores de la partida
+     */
+    public function getMaxNumErrores(): int {
         return $this->maxNumErrores;
     }
 
+    /**
+     * Establece el número máximo de errores de la partida
+     * 
+     * @param int $maxNumErrores Número máximo de errores de la partida
+     * 
+     * @returns void
+     */
     public function setMaxNumErrores($maxNumErrores): void {
         $this->maxNumErrores = $maxNumErrores;
     }
 
+    /**
+     * Recupera el número de errores cometido en la partida
+     * 
+     * @returns int Número de errores cometido en la partida
+     */
     public function getNumErrores(): int {
         return $this->numErrores;
     }
 
+    /**
+     * Establece el número de errores cometido en la partida
+     * 
+     * @param int $numErrores Número de errores cometido en la partida
+     * 
+     * @returns void
+     */
     public function setNumErrores($numErrores): void {
         $this->numErrores = $numErrores;
-    }
-
-    public function getUsuarioId(): ?int {
-        return ($this->id) ?? null;
     }
 
     /**
@@ -115,7 +157,7 @@ class Hangman {
      * 
      * @returns bool Indica si la letra es válisa
      */
-    public function esLetraValida($letra): bool {
+    public function esLetraValida(string $letra): bool {
         return ((strpos($this->getLetras(), strtoupper($letra)) === false) &&
                 preg_match("/^[A-Za-z]$/", $letra));
     }
@@ -127,7 +169,7 @@ class Hangman {
      * 
      * @returns string El estado de la palabra descubierta
      */
-    public function compruebaLetra($letra): string {
+    public function compruebaLetra(string $letra): string {
         $nuevaPalabraDescubierta = implode(array_map(function ($letraSecreta, $letraDescubierta) use ($letra) {
                     return ((strtoupper($letra) === $letraSecreta) ? $letraSecreta : $letraDescubierta);
                 }, str_split($this->getPalabraSecreta()), str_split($this->getPalabraDescubierta())));

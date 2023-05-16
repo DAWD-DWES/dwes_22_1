@@ -2,33 +2,25 @@
 
 namespace App\Modelo;
 
-// PDO se usa para interaccionar con la base de datos relacional
-use \PDO as PDO;
-
 /**
- * Usuario representa al usuario que está usando la aplicación
+ * Clase que representa al usuario que está usando la aplicación
  */
 class Usuario {
 
     /**
-     * Identificador del usuario
+     * @var string $nombre nombre del usuario
      */
-    private $id;
+    private string $nombre;
 
     /**
-     * nombre del usuario
+     * @var string $clave Clave del usuario
      */
-    private $nombre;
+    private string $clave;
 
     /**
-     * Clave del usuario
+     * @var string $email Email del usuario
      */
-    private $clave;
-
-    /**
-     * Email del usuario
-     */
-    private $email;
+    private string $email;
 
     /**
      * Constructor de la clase Usuario
@@ -39,7 +31,7 @@ class Usuario {
      * 
      * @returns Hangman
      */
-    public function __construct(string $nombre = null, string $clave = null, string $email = null) {
+    public function __construct(?string $nombre = null, ?string $clave = null, ?string $email = null) {
         if (!is_null($nombre)) {
             $this->nombre = $nombre;
         }
@@ -51,51 +43,73 @@ class Usuario {
         }
     }
 
+    /**
+     * Recupera el Id del usuario
+     * 
+     * @returns int Id del usuario
+     */
     public function getId(): ?int {
         return $this->id;
     }
 
+    /**
+     * Recupera el nombre del usuario
+     * 
+     * @returns string Nombre del usuario
+     */
     public function getNombre(): string {
         return $this->nombre;
     }
 
+    /**
+     * Establece el nombre del usuario
+     * 
+     * @param string $nombre Nombre del usuario
+     * 
+     * @returns void
+     */
     public function setNombre(string $nombre) {
         $this->nombre = $nombre;
     }
 
+    /**
+     * Recupera la clave del usuario
+     * 
+     * @returns string Clave del usuario
+     */
     public function getClave(): string {
         return $this->clave;
     }
 
+    /**
+     * Establece la clave del usuario
+     * 
+     * @param string $clave Clave del usuario
+     * 
+     * @returns void
+     */
     public function setClave(string $clave) {
         $this->clave = $clave;
     }
 
-    public function getEmail(): string {
+    /**
+     * Recupera el email del usuario
+     * 
+     * @returns string Email del usuario
+     */
+    public function getEmail(): ?string {
         return $this->email;
     }
 
+    /**
+     * Establece el email del usuario
+     * 
+     * @param string $email Email del usuario
+     * 
+     * @returns void
+     */
     public function setEmail(string $email) {
         $this->email = $email;
-    }
-
-    /**
-     * Recupera un objeto usuario dado su nombre de usuario y clave
-     * 
-     * @param PDO $bd Conexión a la base de datos
-     * @param string $nombre Nombre de usuario
-     * @param string $clave Clave del usuario
-     * 
-     * @returns Usuario que corresponde a ese nombre y clave o null en caso contrario
-     */
-    public static function recuperaUsuarioPorCredencial(PDO $bd, string $nombre, string $clave): ?Usuario {
-        $bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
-        $sql = 'select * from usuarios where nombre=:nombre and clave=:clave';
-        $sth = $bd->prepare($sql);
-        $sth->execute([":nombre" => $nombre, ":clave" => $clave]);
-        $sth->setFetchMode(PDO::FETCH_CLASS, Usuario::class);
-        $usuario = ($sth->fetch()) ?: null;
-        return $usuario;
     }
 
 }

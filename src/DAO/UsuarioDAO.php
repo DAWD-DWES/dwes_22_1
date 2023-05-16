@@ -2,30 +2,52 @@
 
 namespace App\DAO;
 
-use PDO;
+use \PDO;
 use App\Modelo\Usuario;
 
 class UsuarioDAO {
+    
+    /**
+     * @var $bd Conexión a la Base de Datos
+     */
 
-    private $bd;
+    private PDO $bd;
+    
+    /**
+     * Constructor de la clase UsuarioDAO
+     * 
+     * @param PDO $bd Conexión a la base de datos
+     * 
+     * @returns UsuarioDAO
+     */
 
-    function __construct($bd) {
+    public function __construct(PDO $bd) {
         $this->bd = $bd;
     }
+    
 
-    function crea($usuario) {
+    public function crea(Usuario $usuario) {
         
     }
 
-    function modifica($usuario) {
+    public function modifica(Usuario $usuario) {
         
     }
 
-    function elimina($nombre) {
+    public function elimina(int $id) {
         
     }
+    
+    /**
+     * Recupera un objeto usuario dado su nombre de usuario y clave
+     * 
+     * @param string $nombre Nombre de usuario
+     * @param string $clave Clave del usuario
+     * 
+     * @returns Usuario que corresponde a ese nombre y clave o null en caso contrario
+     */
 
-    function recuperaPorCredencial($nombre, $pwd) {
+    public function recuperaPorCredencial(string $nombre, string $pwd): ?Usuario {
         $this->bd->setAttribute(PDO::ATTR_CASE, PDO::CASE_NATURAL);
         $sql = 'select * from usuarios where nombre=:nombre and clave=:pwd';
         $sth = $this->bd->prepare($sql);
