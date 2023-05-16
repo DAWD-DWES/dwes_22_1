@@ -9,10 +9,11 @@
  *     Leo la letra
  *     Si no hay error en la letra introducida
  *       Solicito a la partida que compruebe la letra
- *     Sigo jugando
+ *     Invoco la vista de juego con los datos obtenidos
  *   Sino si se solicita una nueva partida
  *     Se crea una nueva partida
  *     Invoco la vista del juego para empezar a jugar
+ *   Sino Invoco la vista de juego
  *  Sino (En cualquier otro caso)
  *      Invoco la vista del formulario de login
  */
@@ -20,7 +21,6 @@ require "../vendor/autoload.php";
 
 use eftec\bladeone\BladeOne;
 use Dotenv\Dotenv;
-use App\BD\BD;
 use App\Modelo\Hangman;
 use App\Almacen\AlmacenPalabrasFichero;
 
@@ -49,11 +49,11 @@ if (isset($_SESSION['usuario'])) {
 // Si se pide jugar con una letra
     if (isset($_POST['botonenviarjugada'])) {
 // Leo la letra
-        $letra = filter_var(trim(filter_input(INPUT_POST, 'letra', FILTER_UNSAFE_RAW)), FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => "/^[A-Za-z]$/"]]);
+        $letra = trim(filter_input(INPUT_POST, 'letra', FILTER_UNSAFE_RAW));
         $usuario = $_SESSION['usuario'];
         $partida = $_SESSION['partida'];
 // Compruebo si la letra no es válida (carácter no válido o ya introducida)
-        $error = !$letra || strpos($partida->getLetras(), strtoupper($letra)) !== false;
+        $error = !$partida->esLetraValida($letra);
         // Si no hay error compruebo la letra
         if (!$error) {
             $partida->compruebaLetra(strtoupper($letra));

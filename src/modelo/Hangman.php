@@ -108,6 +108,19 @@ class Hangman {
     }
 
     /**
+     * Determina si una letra jugada es válida para el juego. Una letra es válida si se trata de una
+     * letra en minúsculas o mayúsculas y si no ha sido jugada anteriormente
+     * 
+     * @param string $letra Letra elegida por el jugador
+     * 
+     * @returns bool Indica si la letra es válisa
+     */
+    public function esLetraValida($letra): bool {
+        return ((strpos($this->getLetras(), strtoupper($letra)) === false) &&
+                preg_match("/^[A-Za-z]$/", $letra));
+    }
+
+    /**
      * Comprueba la letra elegida por el jugador, modifica el estado de la palabra descubierta y añade la letra
      * 
      * @param string $letra Letra elegida por el jugador
