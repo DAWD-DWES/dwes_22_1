@@ -23,7 +23,7 @@
             <div class="panel-heading">Registro</div>
             <div class="panel-body mt-3">
                 <form class="form-horizontal" method="POST" action="index.php" id='formregistro' novalidate>
-                    <div class="form-group row">                            
+                    <div class="mb-3 row">                            
                         <label for="inputNombre" class="col-sm-2 col-form-label">Nombre</label>
                         <div class="col-sm-10">
                             <input id="inputNombre" type="text" value="{{ $nombre ?? "" }}"
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10">
                             <input type="password" value="{{ $clave ?? "" }}"
@@ -44,7 +44,7 @@
                             </div>
                         </div>        
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
                             <input type="email" value="{{ $email ??  "" }}"
@@ -54,7 +54,7 @@
                             </div>
                         </div>        
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <div class="col-md-8 col-md-offset-4">
                             <input type="submit" class="btn btn-primary" name="botonprocregistro" value="Registro">
                         </div>
