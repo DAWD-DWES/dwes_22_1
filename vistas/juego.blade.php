@@ -3,6 +3,19 @@
 {{-- Sección aporta el título de la página --}}
 @section('title', 'Introduce Jugada')
 {{-- Sección muestra vista de juego para que el usuario elija una letra --}}
+@section ('navbar')
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href="juego.php?botonnuevapartida">Nueva Partida</a>
+</li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ $usuario->getNombre() }}
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <li><a class="dropdown-item" href="index.php?botonlogout">Logout</a></li>
+    </ul>
+</li>
+@endsection
 @section('content')
 <div class="container">
     <div class="position-relative p-5">

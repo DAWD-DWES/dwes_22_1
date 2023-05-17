@@ -64,7 +64,8 @@ if (isset($_SESSION['usuario'])) {
 // Sino si se solicita una nueva partida
     } elseif (isset($_REQUEST['botonnuevapartida'])) { // Se arranca una nueva partida
         $usuario = $_SESSION['usuario'];
-        $almacenPalabras = new AlmacenPalabrasFichero();
+        $rutaFichero = $_ENV['RUTA_ALMACEN_PALABRAS'];
+        $almacenPalabras = new AlmacenPalabrasFichero($rutaFichero);
         $partida = new Hangman($almacenPalabras, MAX_NUM_ERRORES);
         $_SESSION['partida'] = $partida;
 // Invoco la vista del juego para empezar a jugar

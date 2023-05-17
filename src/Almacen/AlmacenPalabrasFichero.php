@@ -17,8 +17,8 @@ class AlmacenPalabrasFichero implements AlmacenPalabrasInterface {
      * 
      * @returns AlmacenPalabrasFichero
      */
-    public function __construct() {
-        $fichero = fopen($_SERVER['DOCUMENT_ROOT'] . $_ENV['RUTA_ALMACEN_PALABRAS'], 'r');
+    public function __construct($rutaFichero) {
+        $fichero = fopen($rutaFichero, 'r');
         // recorre todas las palabras y las guarda en el array $palabras
         // de forma separada
         while ($palabraFichero = fgets($fichero)) {
