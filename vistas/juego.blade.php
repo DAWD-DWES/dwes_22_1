@@ -17,6 +17,7 @@
 </li>
 @endsection
 @section('content')
+@set($imgsHangman=['Hangman-0.png','Hangman-1.png','Hangman-2.png','Hangman-3.png','Hangman-4.png','Hangman-5.png'])
 <div class="container">
     <div class="position-relative p-5">
         <div class="position-absolute top-50 start-50 translate-middle">
@@ -46,7 +47,7 @@
             <h3 id="pista"></h3>
         </div>
         <div class="col-sm-4">
-            <img src="assets/img/Hangman-{{ $partida->getNumErrores() }}.png" class="img-fluid">
+            <img src="./assets/img/{{ $imgsHangman[$partida->getNumErrores()] }}" class="img-fluid">
         </div>
     </div>
 </div>

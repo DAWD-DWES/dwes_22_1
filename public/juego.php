@@ -28,13 +28,6 @@ use App\Almacen\AlmacenPalabrasFichero;
 session_start();
 
 define("MAX_NUM_ERRORES", 5);
-define("IMGS_HANGMAN", [
-    'assets/img/Hangman-1.png',
-    'assets/img/Hangman-2.png',
-    'assets/img/Hangman-3.png',
-    'assets/img/Hangman-4.png',
-    'assets/img/Hangman-5.png',
-    'assets/img/Hangman-6.png']);
 
 $dotenv = Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
