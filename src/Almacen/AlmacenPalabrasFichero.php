@@ -15,15 +15,17 @@ class AlmacenPalabrasFichero implements AlmacenPalabrasInterface {
      * 
      * Lee todas las palabras del fichero indicado en el fichero de configuración y las almacena en la propiedad $listaPalabras
      * 
+     * @param string $rutaFichero Ruta relativa al fichero de palabras
      * @returns AlmacenPalabrasFichero
      */
-    public function __construct() {
-        $fichero = fopen($_SERVER['DOCUMENT_ROOT'] . $_ENV['RUTA_ALMACEN_PALABRAS'], 'r');
+    public function __construct(string $rutaFichero) {
+        $fichero = fopen($rutaFichero, 'r');
         // recorre todas las palabras y las guarda en el array $palabras
         // de forma separada
         while ($palabraFichero = fgets($fichero)) {
             $this->listaPalabras[] = trim($palabraFichero);
         }
+        fclose($fichero);
     }
 
     /**
