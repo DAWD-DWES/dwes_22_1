@@ -23,8 +23,7 @@ INSERT INTO usuarios (id, nombre, clave, email) VALUES
 
 ALTER TABLE usuarios
   ADD PRIMARY KEY (id),
-  ADD UNIQUE KEY nombre (nombre),
-  ADD UNIQUE KEY email (email);
+  ADD UNIQUE KEY nombre (nombre);
 
 
 ALTER TABLE usuarios
