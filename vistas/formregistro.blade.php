@@ -4,13 +4,9 @@
 @section('title', 'Formulario registro')
 {{-- Sección aporta el título de la página --}}
 @section('navbar')
-<div class="container justify-content-around">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="index.php?botonlogin">Login</a>
-        </li>
-    </ul>
-</div>
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href="index.php?botonlogin">Login</a>
+</li>
 @endsection
 {{-- Sección muestra el formulario de login del usuario --}}
 @section('content')
