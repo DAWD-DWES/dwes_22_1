@@ -77,7 +77,7 @@ try {
     die;
 }
 
-$usuarioDao = new UsuarioDAO($bd);
+$usuarioDAO = new UsuarioDAO($bd);
 // Si el usuario ya está validado
 if (isset($_SESSION['usuario'])) {
     // Si se solicita cerrar la sesión
@@ -105,7 +105,7 @@ if (isset($_SESSION['usuario'])) {
         // Lee los valores del formulario
         $nombre = trim(filter_input(INPUT_POST, 'nombre', FILTER_UNSAFE_RAW));
         $clave = trim(filter_input(INPUT_POST, 'clave', FILTER_UNSAFE_RAW));
-        $usuario = $usuarioDao->recuperaPorCredencial($nombre, $clave);
+        $usuario = $usuarioDAO->recuperaPorCredencial($nombre, $clave);
         // Si los credenciales son correctos
         if ($usuario) {
             $_SESSION['usuario'] = $usuario;
@@ -137,7 +137,7 @@ if (isset($_SESSION['usuario'])) {
         } else {
             $usuario = new Usuario($nombre, $clave, $email);
             try {
-                $usuarioDao->crea($usuario);
+                $usuarioDAO->crea($usuario);
             } catch (PDOException $e) {
                 echo $blade->run("formregistro", ['errorBD' => true]);
                 die();
