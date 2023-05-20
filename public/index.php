@@ -131,7 +131,8 @@ if (isset($_SESSION['usuario'])) {
         $errorNombre = empty($nombre) || !esNombreValido($nombre);
         $errorPassword = empty($clave) || !esPasswordValido($clave);
         $errorEmail = !esEmailValido($email);
-        if ($errorNombre || $errorPassword || $errorEmail) {
+        $error = $errorNombre || $errorPassword || $errorEmail;
+        if ($error) {
             echo $blade->run("formregistro", compact('nombre', 'clave', 'email', 'errorNombre', 'errorPassword', 'errorEmail'));
             die;
         } else {
