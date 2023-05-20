@@ -8,6 +8,8 @@
     <a class="nav-link" aria-current="page" href="index.php?botonregistro">Regístrate</a>
 </li>
 @endsection
+@section('usermenu')
+@endsection
 {{-- Sección muestra el formulario de login del usuario --}}
 @section('content')
 <div class="container my-5">

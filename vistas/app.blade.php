@@ -15,6 +15,16 @@
             <div class="container justify-content-around">
                 <ul class="navbar-nav">
                     @yield('navbar')
+                    @section('usermenu')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ (!is_null($usuario)) ? $usuario->getNombre() : "" }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="index.php?botonlogout">Logout</a></li>
+                        </ul>
+                    </li>
+                    @show
                 </ul>
             </div>
         </nav>
