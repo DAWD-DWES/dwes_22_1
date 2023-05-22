@@ -12,20 +12,18 @@
                 <img src="assets/img/logo.png" alt="" width="30" height="24">
                 Ahorcado
             </a>
-            <div class="container justify-content-around">
-                <ul class="navbar-nav">
-                    @yield('navbar')
-                    @section('usermenu')
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ (!is_null($usuario)) ? $usuario->getNombre() : "" }}
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="index.php?botonlogout">Logout</a></li>
-                        </ul>
-                    </li>
-                    @show
-                </ul>
+            <div class="container navbar-nav justify-content-end">
+                @yield('navbar')
+                @section('usermenu')
+                <div class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle btn btn-light ms-5" href="#" id="navbarDropdownMenuLink" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ (!is_null($usuario)) ? $usuario->getNombre() : "" }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="index.php?botonlogout">Logout</a></li>
+                    </ul>
+                </div>
+                @show
             </div>
         </nav>
         @yield('mensaje')
