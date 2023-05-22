@@ -219,9 +219,9 @@ class Hangman {
         }
         ksort($ocurrencias); // Ordeno alfabéticamente por la clave que representa la letra
         arsort($ocurrencias); // Ordeno por el número de ocurrencias de cada letra. Se mantiene la relación con la clave
-        foreach ($ocurrencias as $i => $num) { // Busco la primera letra de la lista que está en la palabra secreta y no en la palabra descubierta
-            if ((strpos($this->getPalabraDescubierta(), $i) === false) && (strpos($this->getPalabraSecreta(), $i) !== false)) {
-                $resultado = $i;
+        foreach ($ocurrencias as $letra => $num) { // Busco la primera letra de la lista que está en la palabra secreta y no en la palabra descubierta
+            if ((strpos($this->getPalabraDescubierta(), $letra) === false) && (strpos($this->getPalabraSecreta(), $letra) !== false)) {
+                $resultado = $letra;
                 break;
             }
         }
