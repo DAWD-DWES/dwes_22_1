@@ -8,3 +8,5 @@
     Error de conexión. Inténtelo más tarde
 </div>
 @endsection
+@section('usermenu')
+@endsection
