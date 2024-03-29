@@ -44,3 +44,6 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src="assets/js/pista.js"></script>
+@endpush
