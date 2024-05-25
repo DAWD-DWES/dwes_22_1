@@ -56,7 +56,7 @@ function esNombreValido(string $nombre): bool {
 
 // Validación de la clave con 6 dígitos
 function esPasswordValido(string $clave): bool {
-    return preg_match("/^[0-9]{6}$/", $clave);
+    return (filter_var($clave, FILTER_VALIDATE_INT) && strlen($clave) == 6);
 }
 
 // Validación de correo que puede ser vacío o con e lformato correcto
